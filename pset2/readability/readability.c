@@ -11,6 +11,7 @@ Projete e implemente um programa, readability, que calcule o índice Coleman-Lia
 #include<stdio.h>
 #include<cs50.h>
 #include<string.h>
+#include<math.h>
 
 int main()
 {
@@ -31,18 +32,20 @@ int main()
         else if((text[i] >= 'a' && text[i] <= 'z') || (text[i] >= 'A' && text[i] <= 'Z'))
         {
             letters++;
-            if(text[i+1] == ' ')
+            if(text[i+1] == ' ' || text[i+1] == '\'')
                 words++;
         }
 
-        if(text[i] == ',')
+        if((text[i] == ',') || text[i] == ':')
             words++;
     }
 
-    printf("l: %d\ns: %d\nwords: %d\n", letters, sentences, words);
+    //printf("l: %d\ns: %d\nwords: %d\n", letters, sentences, words);
     letters = (float) letters / words * 100;
     sentences = (float) sentences / words * 100;
-    grade = (int) (0.0588 * letters - 0.296 * sentences - 15.8);
+    grade = round((float) (0.0588 * letters - 0.296 * sentences - 15.8));
+    //printf("l: %d\ns: %d\nwords: %d\n", letters, sentences, grade);
+    //grade = (0.0588 * (letters / words * 100) - 0.296 * (sentences / words * 100) - 15.8);
 
     if(grade < 1)
         printf("Before Grade 1\n");

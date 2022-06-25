@@ -12,12 +12,50 @@
 **/
 
 #include<stdio.h>
-#include<cs50.h>
+#include <stdlib.h>
 #include<string.h>
-#include<math.h>
+#include<ctype.h>
+#include<cs50.h>
 
-int main()
+int main(int argc, string argv[])
 {
+    int k, i = 0, n = 0;
+    string plaintext;
 
+    if (argc == 1 || argc > 2)
+    {
+        // for (int i = 0, n = strlen(argv[1]); i < n; i++)
+        // {
+        //     printf("%c\n", argv[1][i]);
+        // }
+        printf("Erro! Argumento vazio ou mais de um argumento especificado na entrada!");
+        return 1;
+    }
 
+    for (i = 0, n = strlen(argv[1]); i < n; i++)
+    {
+        if (!isdigit(argv[1][i]))
+        {
+            printf("Use: ./caesar key");
+            return 1;
+        }
+    }
+
+    plaintext = get_string("plaintext: ");
+    string ciphertext = plaintext;
+    k = atoi(argv[1]);
+
+    for (i = 0, n = strlen(ciphertext); i < n; i++)
+    {
+        if islower(ciphertext[i])
+            ciphertext[i] = ((((ciphertext[i] + k) - 97) % 26) + 97);
+        else if isupper(ciphertext[i])
+            ciphertext[i] = ((((ciphertext[i] + k) - 65) % 26) + 65);
+        else
+            ciphertext[i] = ciphertext[i];
+    }
+
+    printf("ciphertext: %s\n", ciphertext);
+
+    return 0;
 }

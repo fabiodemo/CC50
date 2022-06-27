@@ -18,6 +18,49 @@
 
 int main(int argc, string argv[])
 {
+    int i, j;
+    string plaintext, ciphertext;
+
+    if (argc == 1 || argc > 2)
+    {
+        printf("Uso: ./ chave de substituição\n");
+        return 1;
+    }
+
+    if (strlen(argv[1]) != 26)
+    {
+        printf("A chave deve conter 26 caracteres.\n");
+        return 1;
+    }
+
+    for (i = 0; i < strlen(argv[1]); i++)
+    {
+        if (!((argv[1][i] >= 65) && (argv[1][i] <= 90)) || ((argv[1][i] >= 97) && (argv[1][i] <= 122)))
+        {
+            printf("Invalid digit");
+            return 1;
+        }
+    }
+
+    ciphertext = plaintext = get_string("plaintext: ");
+
+    for (i = 0; i < strlen(plaintext); i++)
+    {
+        if (isupper(plaintext[i]))
+        {
+            ciphertext[i] = argv[1][plaintext[i] - 65];
+            if (islower(ciphertext[i]))
+                ciphertext[i] = (char) ciphertext[i] - 32;
+        }
+        else if (islower(plaintext[i]))
+        {
+            ciphertext[i] = argv[1][plaintext[i] - 97];
+            if (isupper(ciphertext[i]))
+                ciphertext[i] = (char) ciphertext[i] + 32;
+        }
+    }
+
+    printf("ciphertext: %s\n", ciphertext);
 
     return 0;
 }

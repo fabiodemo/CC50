@@ -26,19 +26,26 @@ int main(int argc, string argv[])
         printf("Uso: ./ chave de substituição\n");
         return 1;
     }
-
-    if (strlen(argv[1]) != 26)
+    else if (strlen(argv[1]) < 26)
     {
         printf("A chave deve conter 26 caracteres.\n");
         return 1;
     }
 
-    for (i = 0; i < strlen(argv[1]); i++)
+    for (i = 0; i < 26; i++)
     {
-        if (!((argv[1][i] >= 65) && (argv[1][i] <= 90)) || ((argv[1][i] >= 97) && (argv[1][i] <= 122)))
+        if (!(((argv[1][i] >= 65) && (argv[1][i] <= 90)) || ((argv[1][i] >= 97) && (argv[1][i] <= 122)) || argv[1][i] != '.'))
         {
             printf("Invalid digit");
             return 1;
+        }
+        for(j = 26; j > i; j--)
+        {
+            if(argv[1][i] == argv[i][j])
+            {
+                printf("Duplicate found");
+                return 1;
+            }
         }
     }
 

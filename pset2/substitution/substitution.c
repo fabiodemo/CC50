@@ -41,7 +41,7 @@ int main(int argc, string argv[])
         }
         for(j = 26; j > i; j--)
         {
-            if(argv[1][i] == argv[i][j])
+            if(argv[1][i] == argv[1][j])
             {
                 printf("Duplicate found");
                 return 1;

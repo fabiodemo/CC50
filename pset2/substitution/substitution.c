@@ -34,14 +34,20 @@ int main(int argc, string argv[])
 
     for (i = 0; i < 26; i++)
     {
-        if (!(((argv[1][i] >= 65) && (argv[1][i] <= 90)) || ((argv[1][i] >= 97) && (argv[1][i] <= 122)) || argv[1][i] != '.'))
+        if (!(((argv[1][i] >= 'A') && (argv[1][i] <= 'Z')) || ((argv[1][i] >= 'a') && (argv[1][i] <= 'z'))))
         {
             printf("Invalid digit");
             return 1;
         }
-        for(j = 26; j > i; j--)
+        if (argv[1][i] == '.')
         {
-            if(argv[1][i] == argv[1][j])
+            printf("Invalid digit");
+            return 1;
+        }
+
+        for (j = 26; j > i; j--)
+        {
+            if (argv[1][i] == argv[1][j])
             {
                 printf("Duplicate found");
                 return 1;
@@ -55,13 +61,13 @@ int main(int argc, string argv[])
     {
         if (isupper(plaintext[i]))
         {
-            ciphertext[i] = argv[1][plaintext[i] - 65];
+            ciphertext[i] = argv[1][plaintext[i] - 'A'];
             if (islower(ciphertext[i]))
                 ciphertext[i] = (char) ciphertext[i] - 32;
         }
         else if (islower(plaintext[i]))
         {
-            ciphertext[i] = argv[1][plaintext[i] - 97];
+            ciphertext[i] = argv[1][plaintext[i] - 'a'];
             if (isupper(ciphertext[i]))
                 ciphertext[i] = (char) ciphertext[i] + 32;
         }

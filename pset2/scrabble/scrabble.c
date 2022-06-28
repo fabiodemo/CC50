@@ -19,6 +19,7 @@ Em main(), seu programa deve imprimir, dependendo da pontuação dos jogadores, 
 **/
 
 #include <ctype.h>
+#include <stdlib.h>
 #include <cs50.h>
 #include <stdio.h>
 #include <string.h>
@@ -39,9 +40,33 @@ int main(void)
     int score2 = compute_score(word2);
 
     // TODO: Print the winner
+    if (score1 > score2)
+        printf("Player 1 wins!\n");
+    else if (score2 > score1)
+        printf("Player 2 wins!\n");
+    else
+        printf("Tie!\n");
+
+    // printf("\nPlayer 1: %d | Player 2: %d\n", score1, score2);
 }
 
 int compute_score(string word)
 {
-    // TODO: Compute and return score for string
+    int i, points = 0;
+    // TODO: Compute and return score for strin
+    for (i = 0; i < strlen(word); i++)
+    {
+        if (((word[i] >= 'A') && (word[i] <= 'Z')) || ((word[i] >= 'a') && (word[i] <= 'z')))
+        {
+            if (isupper(word[i]))
+            {
+                points += POINTS[(int) (word[i] - 'A')];
+                // printf("%d\n", (int) (word[i] - 'A'));
+            }
+            else if (islower(word[i]))
+                points += POINTS[(int) (word[i] - 'a')];
+        }
+    }
+
+    return points;
 }
